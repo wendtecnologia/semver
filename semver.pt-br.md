@@ -1,5 +1,21 @@
-Versionamento Semântico 2.0.0-rc.1
+Versionamento Semântico 2.0.0
 ==================================
+
+Sumário
+-------
+
+Dado um número de versão MAJOR.MINOR.PATCH, incremente a:
+
+1. versão Maior(MAJOR): quando fizer mudanças incompatíveis na API,
+1. versão Menor(MINOR): quando adicionar funcionalidades mantendo 
+compatibilidade, e
+1. versão de Correção(PATCH): quando corrigir falhas mantendo compatibilidade.
+
+Rótulos adicionais para pré-lançamento(pre-release) e metadados de 
+construção(build) estão disponíveis como extensão ao formato MAJOR.MINOR.PATCH.
+
+Introdução
+----------
 
 No mundo de gerenciamento de software existe algo terrível conhecido como
 inferno das dependências ("dependency hell"). Quanto mais o sistema cresce, e 
@@ -19,6 +35,9 @@ em frente com seu projeto de maneira fácil e segura.
 Como uma solução para este problema proponho um conjunto simples de regras e
 requisitos que ditam como os números das versões são atribuídos e incrementados.
 
+Essas regras são baseadas em, mas não necessariamente limitadas às bem 
+difundidas práticas comumente em uso tanto em software fechados como 
+open-source.
 Para que este sistema funcione, primeiro você precisa declarar uma API pública.
 Isto pode consistir de documentação ou ser determinada pelo próprio código. De
 qualquer maneira, é importante que esta API seja clara e precisa. Depois de
@@ -37,7 +56,7 @@ Especificação de Versionamento Semântico (SemVer)
 -------------------------------------------------
 
 As palavras-chaves "DEVE", "NÃO DEVE", "OBRIGATÓRIO", "DEVERÁ", "NÃO DEVERÁ",
-"DEVERIA", "NÃO DEVERIA", "RECOMENDADO", "PODE" e "OPCIONAL" no presente 
+"PODEM", "NÃO PODEM", "RECOMENDADO", "PODE" e "OPCIONAL" no presente 
 documento devem ser interpretados como descrito na [RFC 2119] 
 (http://tools.ietf.org/html/rfc2119).
 
@@ -45,27 +64,27 @@ documento devem ser interpretados como descrito na [RFC 2119]
 API poderá ser declarada no próprio código ou existir estritamente na 
 documentação, desde que seja precisa e compreensiva.
 
-2. Um número de versão normal DEVE ter o formato de X.Y.Z, onde X, Y, e Z são
-inteiros não negativos. X é a versão Maior, Y é a versão Menor, e Z é a versão
-de Correção. Cada elemento DEVE aumentar numericamente por incrementos de um.
-Por exemplo: 1.9.0 -> 1.10.0 -> 1.11.0.
+1. Um número de versão normal DEVE ter o formato de X.Y.Z, onde X, Y, e Z são
+inteiros não negativos, e NÃO DEVE conter zeros à esquerda. X é a versão Maior,
+Y é a versão Menor, e Z é a versão de Correção. Cada elemento DEVE aumentar 
+numericamente. Por exemplo: 1.9.0 -> 1.10.0 -> 1.11.0.
 
-3. Uma vez que um pacote versionado foi lançado(released), o conteúdo desta
+1. Uma vez que um pacote versionado foi lançado(released), o conteúdo desta
 versão NÃO DEVE ser modificado. Qualquer modificação DEVE ser lançado como uma
 nova versão.
 
-4. No início do desenvolvimento, a versão Maior DEVE ser zero (0.y.z). Qualquer
+1. No início do desenvolvimento, a versão Maior DEVE ser zero (0.y.z). Qualquer
 coisa pode mudar a qualquer momento. A API pública não deve ser considerada
 estável.
 
-5. Versão 1.0.0 define a API como pública. A maneira como o número de versão é
+1. Versão 1.0.0 define a API como pública. A maneira como o número de versão é
 incrementado após este lançamento é dependente da API pública e como ela muda.
 
-6. Versão de Correção Z (x.y.Z | x > 0) DEVE ser incrementado apenas se mantiver
+1. Versão de Correção Z (x.y.Z | x > 0) DEVE ser incrementado apenas se mantiver
 compatibilidade e introduzir correção de bugs. Uma correção de bug é definida
 como uma mudança interna que corrige um comportamento incorreto.
 
-7. Versão Menor Y (x.Y.z | x > 0) DEVE  ser incrementada se uma funcionalidade
+1. Versão Menor Y (x.Y.z | x > 0) DEVE  ser incrementada se uma funcionalidade
 nova e compatível for introduzida na API pública. DEVE ser incrementada se
 qualquer funcionalidade da API pública for definida como descontinuada. PODE ser
 incrementada se uma nova funcionalidade ou melhoria substancial for introduzida
@@ -73,36 +92,50 @@ dentro do código privado. PODE incluir mudanças a nível de correção. A vers
 Correção deve ser redefinida para 0(zero) quando a versão Menor for 
 incrementada.
 
-8. Versão Maior X (X.y.z | X > 0) DEVE ser incrementada se forem introduzidas
+1. Versão Maior X (X.y.z | X > 0) DEVE ser incrementada se forem introduzidas
 mudanças incompatíveis na API pública. PODE incluir alterações a nível de versão
 Menor e de versão de Correção. Versão de Correção e Versão Menor devem ser 
 redefinidas para 0(zero) quando a versão Maior for incrementada.
 
-9. Uma versão de Pré-Lançamento (pre-release) PODE ser identificada adicionando
+1. Uma versão de Pré-Lançamento (pre-release) PODE ser identificada adicionando
 um hífen (dash) e uma série de identificadores separados por ponto (dot)
-imediatamente após a versão de Correção. o identificador DEVE ser composto
-apenas por caracteres alfanumérios e hífen [0-9A-Za-z-]. Versão de
-Pré-Lançamento tem  precedência inferior à versão normal a que está associada.
-Exemplos: 1.0.0-alpha, 1.0.0-alpha.1, 1.0.0-0.3.7, 1.0.0-x.7.z.92.
+imediatamente após a versão de Correção. Identificador DEVE incluir apenas
+caracteres alfanuméricos e hífen [0-9A-Za-z-]. Identificador NÃO DEVE ser 
+vazio. Indicador numérico NÃO DEVE incluir zeros à esquerda. Versão de
+Pré-Lançamento tem precedência inferior à versão normal a que está associada.
+Uma versão de Pré-Lançamento (pre-release) indica que a versão é instável e pode
+não satisfazer os requisitos de compatibilidade pretendidos, como indicado por
+sua versão normal associada. Exemplos: 1.0.0-alpha, 1.0.0-alpha.1, 1.0.0-0.3.7,
+1.0.0-x.7.z.92.
 
-10. Uma versão de Construção (build) PODE ser identificada por adicionar um
+1. Metadados de construção(Build) PODE ser identificada por adicionar um
 sinal de adição (+) e uma série de identificadores separados por ponto
-imediatamente após a versão de Correção ou Pré-Lançamento. Identificador DEVE 
-ser composto apenas por caracteres alfanumérios e hífen [0-9A-Za-z-]. Versões de
-Construção têm precedência maior à versão normal a que está associada. Exemplos: 
-1.0.0+build.1, 1.3.7+build.11.e0f985a.
+imediatamente após a Correção ou Pré-Lançamento. Identificador DEVE 
+ser composto apenas por caracteres alfanuméricos e hífen [0-9A-Za-z-].
+Identificador NÃO DEVE ser vazio.  Metadados de construção PODEM ser ignorados 
+quando se determina a versão de precedência. Assim, duas versões que diferem 
+apenas nos metadados de construção, têm a mesma precedência. Exemplos:
+1.0.0-alpha+001, 1.0.0+20130313144700, 1.0.0-beta+exp.sha.5114f85.
 
-11. A precendência DEVE ser calculada separando identificadores de versão em 
-Maior, Menor, Correção, Pré-lançamento e Construção, nesta ordem. Versões Maior,
-Menor e Correção são sempre comparadas numericamente. A precedência de versões
-de Pré-lançamento e Construção DEVE ser determinada comparando cada
-identificador separado por ponto da seguinte forma: identificadores consistindo
-apenas dígitos são comparados numericamente e identificadores com letras ou
-hífen são comparados lexicalmente na ordem de classificação ASCII.
+1. A precedência refere como as versões são comparadas com cada outra quando 
+solicitado.  A precedência DEVE ser calculada separando identificadores de 
+versão em Maior, Menor, Correção e Pré-lançamento, nesta ordem (Metadados de 
+construção não figuram na precedência). A precedência é determinada pela 
+primeira diferença quando se compara cada identificador da esquerda para 
+direita, como se segue: Versões Maior, Menor e Correção são sempre comparadas 
+numericamente. Example: 1.0.0 < 2.0.0 < 2.1.0 < 2.1.1. Quando Maior, Menor e 
+Correção são iguais, a versão de Pré-Lançamento tem precedência menor que a 
+versão normal. Example: 1.0.0-alpha < 1.0.0. A precedência entre duas versões 
+de Pré-lançamento com mesma versão Maior, Menor e Correção DEVE ser 
+determinada comparando cada identificador separado por ponto da esquerda para 
+direita até que seja encontrada diferença da seguinte forma: identificadores 
+consistindo apenas dígitos são comparados numericamente e identificadores com 
+letras ou hífen são comparados lexicalmente na ordem de classificação ASCII.
 Identificadores numéricos sempre têm menor precedência do que os não numéricos.
-Exemplo: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1
-< 1.0.0-rc.1+build.1 < 1.0.0 < 1.0.0+0.3.7 < 1.3.7+build < 1.3.7+build.2.b8f12d7
-< 1.3.7+build.11.e0f985a.
+Um conjunto maior de campos de pré-lançamento tem uma precedência maior do que
+um conjunto menor, se todos os identificadores anteriores são iguais.
+Example: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 
+1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
 
 Por que usar Versionamento Semântico?
 -------------------------------------
@@ -177,7 +210,7 @@ software que será usado por outros. Gerenciar a complexidade de software é uma
 parte muito importante para manter o projeto eficiente, e isto é difícil de
 fazer se ninguém sabe como usá-lo ou que métodos são seguros de chamar. A longo
 prazo, Versionamento Semântico e a insistência em uma API pública bem definida
-podem deixar tudo e todos funcionamente suavemente.
+podem deixar tudo e todos funcionando suavemente.
 
 ### O que eu faço se, acidentalmente, liberar uma mudança incompatível com versões anteriores como uma versão menor (minor version)?
 
@@ -198,7 +231,7 @@ dependente se você atualizou suas dependências a fim de corrigir um bug ou
 introduzir nova funcionalidade. Eu normalmente esperaria código adicional para 
 última instância, caso em que é obviamente um incremento no nível menor.
 
-###  O que devo fazer se o erro que está sendo corrigido retorna o código para estar em conformidade com a API pública (ou seja, o código estava incorretamente fora de sincronia com a documentação da API pública)?
+### E se eu alterei inadvertidamente a API pública de forma incompatível com a mudança no número de versão (ex.: o código incorretamente introduz uma grande mudança incompatível em  liberação de um patch)
 
 Use o bom senso. Se você tem um público enorme que será drasticamente impactado
 pela mudança de comportamento de volta para o que a API pública pretendida, 
@@ -210,14 +243,19 @@ utilize o número da versão para informá-los.
 
 ### Como devo lidar com descontinuação de funcionalidades?
 
-Descontinuar funcionalidades é um processo comum no desenvolvimento de software e
-muitas vezes é necessário para haver progresso. Quando você descontinua partes de
-sua API pública, você deve fazer duas coisas: (1) atualizar sua documentação,
+Descontinuar funcionalidades é um processo comum no desenvolvimento de software 
+e muitas vezes é necessário para haver progresso. Quando você descontinua partes
+de sua API pública, você deve fazer duas coisas: (1) atualizar sua documentação,
 para que os usuários saibam das mudanças, (2) lançar uma versão Menor anunciando
 a descontinuação. Antes de remover completamente a funcionalidade em uma versão 
 Maior deve haver ao menos uma versão Menor que possui a descontinução anunciada, 
 fazendo com que os usuários realizem uma transição tranquila para a nova API.
 
+### O SemVer tem um limite de tamanho para string de versão?
+
+Não, mas use o bom senso. Uma string de versão com 255 caracteres por exemplo,
+provavelmente é um exagero. Porém, sistemas específicos podem definir seus 
+prórios limites para o tamanho da string.
 
 Sobre
 -----
@@ -227,24 +265,24 @@ Preston-Werner](http://tom.preston-werner.com), criador do Gravatars e
 co-fundador do GitHub.
 
 A tradução deste documento para Português-Brasil foi iniciada de forma 
-colaborativa pela [Wend Tecnologia] (https://github.com/wendtecnologia) através
-de [Walker de Alencar Oliveira] (https://github.com/walkeralencar) e teve a 
+colaborativa pela [Wend Tecnologia](https://github.com/wendtecnologia) através
+de [Walker de Alencar Oliveira](https://github.com/walkeralencar) e teve a 
 participação de:
-* [William G. Comnisky] (https://github.com/wcomnisky)
-* [Rafael Sirotheau] (https://github.com/rafasirotheau)
-* [Arthur Almeida] (https://github.com/arthuralmeidap)
-* [Alberto Guimarães Viana] (https://github.com/albertogviana)
-* [Rafael Lúcio] (https://github.com/poste9)
+
+* [William G. Comnisky](https://github.com/wcomnisky)
+* [Rafael Sirotheau](https://github.com/rafasirotheau)
+* [Arthur Almeida](https://github.com/arthuralmeidap)
+* [Alberto Guimarães Viana](https://github.com/albertogviana)
+* [Rafael Lúcio](https://github.com/poste9)
 * Josiel Rocha
 * Alessandro Leite
 * Vinícius Assef
-* [Silas Ribas Martins] (https://github.com/silasrm)
+* [Silas Ribas Martins](https://github.com/silasrm)
 
 Toda colaboração na tradução pode ser acompanhada no link:
-http://okfnpad.org/ep/pad/view/Fh9hjBPVu9/latest
+http://pad.okfn.org/p/Fh9hjBPVu9
 
-Caso queira deixar sua opinião, por favor [abra uma issue no GitHub]
-(https://github.com/wendtecnologia/semver/issues)
+Caso queira deixar sua opinião, por favor [abra uma issue no GitHub](https://github.com/wendtecnologia/semver/issues).
 
 Licença
 -------
