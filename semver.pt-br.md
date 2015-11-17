@@ -6,13 +6,13 @@ Sumário
 
 Dado um número de versão MAJOR.MINOR.PATCH, incremente a:
 
-1. versão Maior(MAJOR): quando fizer mudanças incompatíveis na API,
-1. versão Menor(MINOR): quando adicionar funcionalidades mantendo 
+1. Versão Maior (MAJOR): quando fizer mudanças incompatíveis na API,
+1. Versão Menor (MINOR): quando adicionar funcionalidades mantendo 
 compatibilidade, e
-1. versão de Correção(PATCH): quando corrigir falhas mantendo compatibilidade.
+1. Versão de Correção (PATCH): quando corrigir falhas mantendo compatibilidade.
 
-Rótulos adicionais para pré-lançamento(pre-release) e metadados de 
-construção(build) estão disponíveis como extensão ao formato MAJOR.MINOR.PATCH.
+Rótulos adicionais para pré-lançamento (pre-release) e metadados de 
+construção (build) estão disponíveis como extensão ao formato MAJOR.MINOR.PATCH.
 
 Introdução
 ----------
@@ -108,7 +108,7 @@ não satisfazer os requisitos de compatibilidade pretendidos, como indicado por
 sua versão normal associada. Exemplos: 1.0.0-alpha, 1.0.0-alpha.1, 1.0.0-0.3.7,
 1.0.0-x.7.z.92.
 
-1. Metadados de construção(Build) PODE ser identificada por adicionar um
+1. Metadados de construção (Build) PODE ser identificada por adicionar um
 sinal de adição (+) e uma série de identificadores separados por ponto
 imediatamente após a Correção ou Pré-Lançamento. Identificador DEVE 
 ser composto apenas por caracteres alfanuméricos e hífen [0-9A-Za-z-].
@@ -224,7 +224,7 @@ questão.
 ### O que devo fazer se eu atualizar minhas próprias dependências sem modificar a API pública?
 
 Isso seria considerado compatível, uma vez que não afeta a API pública. Software
-que depende explicitamente da mesmas dependências que seu pacote, deve ter sua
+que depende explicitamente da mesma dependência que seu pacote, deve ter sua
 própria especificação de dependência e o autor notificará quaisquer conflitos.
 Para determinar se a mudança é a nível de correção ou modificação de nível menor
 dependente se você atualizou suas dependências a fim de corrigir um bug ou
@@ -236,7 +236,7 @@ introduzir nova funcionalidade. Eu normalmente esperaria código adicional para
 Use o bom senso. Se você tem um público enorme que será drasticamente impactado
 pela mudança de comportamento de volta para o que a API pública pretendida, 
 então pode ser melhor realizar um lançamento de uma versão maior, mesmo que a 
-correção pudesse ser considerada estritamente uma versão de correção.Lembre-se, 
+correção pudesse ser considerada estritamente uma versão de correção. Lembre-se, 
 Versionamento Semântico trata de transmitir o conhecimento das mudanças 
 ocorridas na versão. Se estas mudanças são importantes para seus usuários, 
 utilize o número da versão para informá-los.
@@ -248,14 +248,14 @@ e muitas vezes é necessário para haver progresso. Quando você descontinua par
 de sua API pública, você deve fazer duas coisas: (1) atualizar sua documentação,
 para que os usuários saibam das mudanças, (2) lançar uma versão Menor anunciando
 a descontinuação. Antes de remover completamente a funcionalidade em uma versão 
-Maior deve haver ao menos uma versão Menor que possui a descontinução anunciada, 
+Maior deve haver ao menos uma versão Menor que possui a descontinuação anunciada, 
 fazendo com que os usuários realizem uma transição tranquila para a nova API.
 
 ### O SemVer tem um limite de tamanho para string de versão?
 
 Não, mas use o bom senso. Uma string de versão com 255 caracteres por exemplo,
 provavelmente é um exagero. Porém, sistemas específicos podem definir seus 
-prórios limites para o tamanho da string.
+próprios limites para o tamanho da string.
 
 Sobre
 -----
