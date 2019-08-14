@@ -57,8 +57,7 @@ Especificação de Versionamento Semântico (SemVer)
 
 As palavras-chaves "DEVE", "NÃO DEVE", "OBRIGATÓRIO", "DEVERÁ", "NÃO DEVERÁ",
 "PODEM", "NÃO PODEM", "RECOMENDADO", "PODE" e "OPCIONAL" no presente 
-documento devem ser interpretados como descrito na [RFC 2119] 
-(http://tools.ietf.org/html/rfc2119).
+documento devem ser interpretados como descrito na [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
 1. Software usando Versionamento Semântico DEVE declarar uma API pública. Esta 
 API poderá ser declarada no próprio código ou existir estritamente na 
